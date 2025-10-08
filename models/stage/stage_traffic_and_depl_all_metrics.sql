@@ -1,19 +1,34 @@
-SELECT
-    t1.ID AS account_id,
+select
+    t1.id as account_id,
 
-    INITCAP(t1.NAME) AS account_name,
+    initcap(t1.name) as account_name,
 
-    LEFT(TRIM(CAST(t1.ZIPCODE AS VARCHAR)), 5) AS Zip_code,
+    left(trim(cast(t1.zipcode as varchar)), 5) as zip_code,
 
-    t1.* EXCLUDE (ID, NAME, TYPE, LATEST_METADATA_PUB_DATE, ZIPCODE,
-    AVG_VISITORS_PERCENT_BY_FREQ_1, AVG_VISITORS_PERCENT_BY_FREQ_2, AVG_VISITORS_PERCENT_BY_FREQ_3, 
-    AVG_VISITORS_PERCENT_BY_FREQ_4, AVG_VISITORS_PERCENT_BY_FREQ_5, AVG_VISITORS_PERCENT_BY_FREQ_6,
-    AVG_VISITORS_PERCENT_BY_FREQ_7, AVG_VISITORS_PERCENT_BY_FREQ_8, AVG_VISITORS_PERCENT_BY_FREQ_9,
-    AVG_VISITORS_PERCENT_BY_FREQ_10, AVG_VISITORS_PERCENT_BY_FREQ_15, AVG_VISITORS_PERCENT_BY_FREQ_20,
-    AVG_VISITORS_PERCENT_BY_FREQ_30_OR_MORE) 
-    
-FROM {{ ref('base_traffic_and_depl_all_metrics') }} t1
+    t1.* exclude (
+        id,
+        name,
+        type,
+        latest_metadata_pub_date,
+        zipcode,
+        avg_visitors_percent_by_freq_1,
+        avg_visitors_percent_by_freq_2,
+        avg_visitors_percent_by_freq_3,
+        avg_visitors_percent_by_freq_4,
+        avg_visitors_percent_by_freq_5,
+        avg_visitors_percent_by_freq_6,
+        avg_visitors_percent_by_freq_7,
+        avg_visitors_percent_by_freq_8,
+        avg_visitors_percent_by_freq_9,
+        avg_visitors_percent_by_freq_10,
+        avg_visitors_percent_by_freq_15,
+        avg_visitors_percent_by_freq_20,
+        avg_visitors_percent_by_freq_30_or_more
+    )
 
-WHERE
-    t1.ID IS NOT NULL 
-    AND t1.TOTAL_DEPLETIONS_R12 IS NOT NULL
+from {{ ref("base_traffic_and_depl_all_metrics") }} t1
+
+where
+    t1.id is not null
+    and t1.total_depletions_r12 is not null
+    and (total_yearly_foot_traffic is not null or total_yearly_foot_traffic = 0)
