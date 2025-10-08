@@ -13,6 +13,11 @@ SELECT
     CASE
         WHEN TOTAL_YEARLY_FOOT_TRAFFIC = 0 THEN NULL
         ELSE TOTAL_DEPLETIONS_R12 / TOTAL_YEARLY_FOOT_TRAFFIC
-    END AS sales_efficiency_ratio
+    END AS depletions_over_foot_traffic,
+
+        CASE
+        WHEN TOTAL_YEARLY_FOOT_TRAFFIC = 0 THEN NULL
+        ELSE TOTAL_YEARLY_FOOT_TRAFFIC / TOTAL_DEPLETIONS_R12
+    END AS foot_traffic_over_depletions
 
 FROM {{ ref('stage_traffic_and_depl_all_metrics') }}
