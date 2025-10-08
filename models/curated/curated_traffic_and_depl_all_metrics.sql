@@ -18,6 +18,12 @@ SELECT
         CASE
         WHEN TOTAL_YEARLY_FOOT_TRAFFIC = 0 THEN NULL
         ELSE TOTAL_YEARLY_FOOT_TRAFFIC / TOTAL_DEPLETIONS_R12
-    END AS foot_traffic_over_depletions
+    END AS foot_traffic_over_depletions,
+
+        CASE
+        WHEN TOTAL_DEPLETIONS_R12 >= 629
+        THEN 'Above Average'
+        ELSE 'Below Average'
+    END AS depletion_mapping
 
 FROM {{ ref('stage_traffic_and_depl_all_metrics') }}
