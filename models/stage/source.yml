@@ -5,4 +5,4 @@ sources:
     database: DBT_DEV
     schema: DBT_SAM_KISHAN_POC
     tables:
-      - name: TRAFFIC_AND_DEPL_ALL_METRICS
+      - name: NEW_TRAFFIC_AND_DEPL_ALL_METRICS
