@@ -8,3 +8,4 @@ SELECT
         {% if not loop.last %},{% endif %}
     {% endfor %}
 FROM {{ ref('curated_traffic_and_depl_all_metrics') }}
+
